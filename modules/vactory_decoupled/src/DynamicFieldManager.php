@@ -436,6 +436,15 @@ class DynamicFieldManager {
                   $this->cacheability->setCacheTags($cacheTags);
                   $uri = $file->thumbnail->entity->getFileUri();
                   $image_item['_default'] = $this->mediaFilesManager->getMediaAbsoluteUrl($uri);
+                  // Override _default property
+                  if(isset($dark)) {
+                    $dark_mode_style = ImageStyle::load("dark");
+                    // Check if the image style exists
+                    if ($dark_mode_style) {
+                      $styled_image = $dark_mode_style->buildUrl($uri);
+                      $image_item['_default'] = $styled_image;
+                    }
+                  }
                   $image_item['file_name'] = $file->label();
                   if (!empty($file->get('field_media_image')->getValue())) {
                     $image_item['meta'] = $file->get('field_media_image')
@@ -462,6 +471,15 @@ class DynamicFieldManager {
                   $this->cacheability->setCacheTags($cacheTags);
                   $uri = $file->thumbnail->entity->getFileUri();
                   $image_item['_default'] = $this->mediaFilesManager->getMediaAbsoluteUrl($uri);
+                  // Override _default property
+                  if(isset($dark)) {
+                    $dark_mode_style = ImageStyle::load("dark");
+                    // Check if the image style exists
+                    if ($dark_mode_style) {
+                      $styled_image = $dark_mode_style->buildUrl($uri);
+                      $image_item['_default'] = $styled_image;
+                    }
+                  }
                   $image_item['file_name'] = $file->label();
                   if (!empty($file->get('field_media_image')->getValue())) {
                     $image_item['meta'] = $file->get('field_media_image')

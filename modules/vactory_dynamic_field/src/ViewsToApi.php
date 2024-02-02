@@ -249,6 +249,19 @@ class ViewsToApi {
             $uri = $file->getFileUri();
             $fileResult = [];
             $fileResult['_default'] = \Drupal::service('file_url_generator')->generateAbsoluteString($uri);
+            // Get style from query param
+            $query = \Drupal::request()->query->all("q");
+            $dark = $query['dark'];
+            // Override _default property
+            if(isset($dark)) {
+              $dark_mode_style = ImageStyle::load("dark");
+              // Check if the image style exists
+              if ($dark_mode_style) {
+                $styled_image = $dark_mode_style->buildUrl($uri);
+                $fileResult['_default'] = $styled_image;
+              }
+            }
+
             $fileResult['_lqip'] = $lqipImageStyle->buildUrl($uri);
             $fileResult['uri'] = StreamWrapperManager::getTarget($uri);
             $fileResult['fid'] = $fid;

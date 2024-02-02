@@ -92,6 +92,20 @@ class VactoryFileImageEnhancer extends ResourceFieldEnhancerBase implements Cont
         'meta' => $media->getAllMetadata()
       ];
 
+      // Get style from query param
+      $query = \Drupal::request()->query->all("q");
+      $dark = $query['dark'];
+      // Override _default property
+      if(isset($dark)) {
+        $dark_mode_style = ImageStyle::load("dark");
+        // Check if the image style exists
+        if ($dark_mode_style) {
+          $styled_image = $dark_mode_style->buildUrl($uri);
+          $data['value']['_default'] = $styled_image;
+        }
+      }
+
+
 //      $data['value'] = \Drupal::service('file_url_generator')->generateAbsoluteString($data['value']);
     }
     return $data;
