@@ -196,20 +196,14 @@ class VactoryContentInlineEditTableForm extends FormBase
                     ],
                 ];
                 break;
-                // case 'image':
-                //     $field = [
-                //         '#type' => 'media_library',
-                //         '#title' => $fieldConfig['label'],
-                //         '#allowed_bundles' => ['image'],
-                //         '#title' => $fieldConfig['label'],
-                //         '#default_value' => $fieldConfig['mid'],
-                //         '#description' => t('Upload or select your profile image.'),
-                //         // '#attributes' => [
-                //         //     'class' => ['paragraph-field'],
-                //         //     'data-original-value' => $fieldConfig['mid']
-                //         // ],
-                //     ];
-                //     break;
+                case 'image':
+                    $field = [
+                        '#type' => 'media_library',
+                        '#title' => $fieldConfig['label'],
+                        '#allowed_bundles' => ['image'],
+                        '#default_value' => $fieldConfig['mid'],                       
+                    ];
+                    break;
 
             case 'url_extended':
                 $field = [
@@ -237,7 +231,6 @@ class VactoryContentInlineEditTableForm extends FormBase
 
         return $field;
     }
-
 
     public function submitForm(array &$form, FormStateInterface $form_state) {
         $this->buildTable($form, $form_state);
